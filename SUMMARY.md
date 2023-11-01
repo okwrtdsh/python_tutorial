@@ -49,6 +49,17 @@
     * [クラス](./01_python/35.md)
     * [モジュールとパッケージとライブラリ](./01_python/36.md)
 * [Django について](./02_django/01.md)
-    * [Web アプリケーションについて](./02_django/02.md)
-    * [Bash コマンドの紹介](./02_django/03.md)
-    * [Git の紹介](./02_django/04.md)
+    * Web アプリの概要と必須ツールの紹介
+        * [Web アプリケーションについて](./02_django/02.md)
+        * [Bash コマンドの紹介](./02_django/03.md)
+        * [Git の紹介](./02_django/04.md)
+    * Django チュートリアル
+        * [Django とは](./02_django/05.md)
+        * [今回作成するアプリについて](./02_django/06.md)
+        * [Django Tutorial 1](./02_django/07.md)
+        * [Django Tutorial 2](./02_django/08.md)
+        * [Django Tutorial 3](./02_django/09.md)
+        * [Django Tutorial 4](./02_django/10.md)
+        * [Django Tutorial 5](./02_django/11.md)
+
+
