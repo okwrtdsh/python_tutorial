@@ -61,5 +61,6 @@
         * [Django Tutorial 3](./02_django/09.md)
         * [Django Tutorial 4](./02_django/10.md)
         * [Django Tutorial 5](./02_django/11.md)
+        * [Django Tutorial 6](./02_django/12.md)
 
 
