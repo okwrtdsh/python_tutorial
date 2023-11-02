@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}カテゴリー一覧{% endblock%}
+
+{% block content %}
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>表示順</th><th>名称</th><th>作成日時</th><th>更新日時</th><th>有効</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in category_list %}
+    <tr>
+      <td>{{ category.order }}</td>
+      <td>{{ category.name }}</td>
+      <td>{{ category.created }}</td>
+      <td>{{ category.updated }}</td>
+      <td>{% if category.enabled %}有効{% else %}無効{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if is_paginated %}
+{% include 'include/pagination.html' with page_obj=page_obj %}
+{% endif %}
+{% endblock %}
