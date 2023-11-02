@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}ToDo 詳細{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header text-bg-primary">
+    <h4 class="card-title">ToDo 詳細</h4>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered">
+      <tr>
+        <th>完了</th>
+        <td>{% if todo.is_completed %}{{ todo.completed }}{% else %}未完了{% endif %}</td>
+      </tr>
+      <tr>
+        <th>締め切り</th>
+        <td>{{ todo.deadline }}</td>
+      </tr>
+      <tr>
+        <th>名称</th>
+        <td>{{ todo.name }}</td>
+      </tr>
+      <tr>
+        <th>優先度</th>
+        <td>{{ todo.get_priority_display }}</td>
+      </tr>
+      <tr>
+        <th>カテゴリー</th>
+        <td>{{ todo.get_categories_display }}</td>
+      </tr>
+      <tr>
+        <th>作成日時</th>
+        <td>{{ todo.created }}</td>
+      </tr>
+      <tr>
+        <th>更新日時</th>
+        <td>{{ todo.updated }}</td>
+      </tr>
+      <tr>
+        <th>有効</th>
+        <td>{% if todo.enabled %}有効{% else %}無効{% endif %}</td>
+      </tr>
+      <tr>
+        <th>備考</th>
+        <td>{{ todo.note|linebreaks }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="card-footer align-center">
+  </div>
+</div>
+{% endblock %}
+

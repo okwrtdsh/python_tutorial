@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 
@@ -43,3 +43,9 @@ class ToDoListView(LoginRequiredMixin, ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(user__id=self.request.user.id)
         return queryset
+
+
+class ToDoDetailView(LoginRequiredMixin, DetailView):
+    model = ToDo
+    pk_url_kwarg = "todo_id"
+    template_name = "todo/detail.html"
