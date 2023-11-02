@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 
 from tutorial.forms import FormControlMixin
-from .models import ToDoUser
+from .models import ToDoUser, ToDo, Category
 
 
 class ToDoUserCreateForm(UserCreationForm, FormControlMixin):
@@ -38,3 +38,33 @@ class ToDoUserCreateForm(UserCreationForm, FormControlMixin):
             if user is not None and user.is_active:
                 login(self.request, user)
         return todouser
+
+
+class ToDoCreateForm(forms.ModelForm, FormControlMixin):
+
+    class Meta:
+        model = ToDo
+        fields = [
+            "name",
+            "deadline",
+            "priority",
+            "categories",
+            "note",
+        ]
+        widgets = {
+            'categories': forms.CheckboxSelectMultiple()
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super().__init__(*args, **kwargs)
+        self.fields['categories'].queryset = Category.objects.filter(enabled=True)
+        self.fields['categories'].widget.attrs.update({'class': "checkbox"})
+
+    def save(self, commit=True):
+        todo = super().save(commit=False)
+        todo.user = self.request.user.todouser
+        if commit:
+            todo.save()
+            self.save_m2m()
+        return todo

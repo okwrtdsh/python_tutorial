@@ -57,6 +57,15 @@
                         <li><a class="dropdown-item" href="{% url 'site_admin:category_create' %}">登録</a></li>
                       </ul>
                     </li>
+                  {% else %}
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTodo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ToDo
+                      </a>
+                      <ul class="dropdown-menu", aria-labelledby="navbarDropdownTodo">
+                        <li><a class="dropdown-item" href="{% url 'todo:create' %}">登録</a></li>
+                      </ul>
+                    </li>
                   {% endif %}
                 {% endif %}
               {% endblock %}
