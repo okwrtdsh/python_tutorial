@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}カテゴリ登録{% endblock%}
+
+{% block content %}
+{% include 'include/form.html' with form=form form_title='カテゴリ登録フォーム' submit_btn_label='登録' csrf_token=csrf_token only %}
+{% endblock %}

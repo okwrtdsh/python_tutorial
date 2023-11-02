@@ -1,0 +1,8 @@
+.git/
+.gitignore
+docs/
+_book/
+example/
+node_modules/
+.DS_Store
+*.sh

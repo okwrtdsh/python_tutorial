@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Web アプリケーションについて · HonKit</title>
+        <title>Django Tutorial 7 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.5">
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="03.html" />
     
+    <link rel="prev" href="12.html" />
     
 
     </head>
@@ -766,7 +766,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="2.2.1.1" data-path="02.html">
+        <li class="chapter " data-level="2.2.1.1" data-path="02.html">
             
                 <a href="02.html">
             
@@ -928,7 +928,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2.2.9" data-path="13.html">
+        <li class="chapter active" data-level="2.2.2.9" data-path="13.html">
             
                 <a href="13.html">
             
@@ -981,7 +981,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Web アプリケーションについて</a>
+        <a href=".." >Django Tutorial 7</a>
     </h1>
 </div>
 
@@ -996,152 +996,162 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="web-アプリケーションについて">Web アプリケーションについて</h1>
-<p>Web アプリについて概要を紹介します。聞き流す感じで大丈夫です。</p>
-<h2 id="web-アプリの特徴">Web アプリの特徴</h2>
+                                <h1 id="管理者機能-category-の登録">管理者機能 Category の登録</h1>
 <ul>
-<li>Web アプリは、主にサーバと HTTP で通信してブラウザ上で操作するアプリケーション<ul>
-<li>例: <a href="https://www.amazon.co.jp/" target="_blank">https://www.amazon.co.jp/</a> 等</li>
-<li>HTTP (HyperText Transfer Protocol):<ul>
-<li>HTML 等を転送することを目的とした規格であり、ブラウザとサーバ間の通信等で使用される</li>
+<li>やること<ul>
+<li>作成<ol>
+<li><code>tutorial/views.py</code> にユーザーと管理者のログインを要求する共通処理を作成</li>
+<li><code>tutorial/site_admin/forms.py</code> に Category 登録用のフォームを作成</li>
+<li><code>tutorial/site_admin/views.py</code> に Category 登録機能を作成</li>
+<li><code>tutorial/site_admin/templates/site_admin/category/create.html</code> に Category 登録画面作成<ul>
+<li>共通デザインを再利用可能に<ul>
+<li><code>tutorial/templates/include/form.html</code>作成</li>
+<li><code>tutorial/todo/templates/todo/user_create.html</code>変更</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>ネイティブアプリと異なり、クライアント側にアプリケーションのインストールが不要であり、OS 等が異なっていてもブラウザがあれば環境に依存しない (クロスプラットフォームに対応可能)<ul>
-<li>ネイティブアプリ:<ul>
-<li>Windows、MacOS、iOS、Android 上にインストールして使用するアプリケーション</li>
-<li>開発する場合は、OS や OS のバージョンごとに作成する必要がある (OS によって開発言語も異なる場合が多い)<ul>
-<li>Windows: C# 等</li>
-<li>MacOS/iOS: Swift 等</li>
-<li>Android: Java、Kotlin 等</li>
-</ul>
+</ol>
+</li>
+<li>変更<ol>
+<li><code>tutorial/site_admin/urls.py</code> に view を追加</li>
+<li><code>tutorial/templates/base.html</code> にリンクを追加 (管理者ログイン時の表示を修正)</li>
+</ol>
 </li>
 </ul>
 </li>
 </ul>
-</li>
-<li>サーバ上のファイルを更新するだけで、更新が完了する<ul>
-<li>ネイティブアプリの場合、すべてのユーザーが更新版をインストールするまで更新が完了しない (移行期間を設けて、旧バージョンでのアクセスを維持する必要がある)</li>
-</ul>
-</li>
-<li>Web アプリのデメリットとしては、動作が遅い<ul>
-<li>インターネットでリソースを取得する時間であったり、JavaScript の実行速度自体が遅い (実行速度については WebAssembly という言語により今後改善する可能性がある)</li>
-</ul>
-</li>
-</ul>
-<h2 id="web-アプリの構成要素">Web アプリの構成要素</h2>
-<ul>
-<li>Web アプリは、フロントエンドとバックエンドに大きく分類される<pre><code>[フロントエンド] &lt;= インターネット =&gt; [バックエンド]
-</code></pre></li>
-<li>フロントエンド:<ul>
-<li>ブラウザ等のクライアント側</li>
-<li>一般的な Web ユーザーが使うインターネットに接続された端末や、端末上で利用できる Web にアクセスするソフトウェアのことを Client と呼びます。</li>
-</ul>
-</li>
-<li>バックエンド:<ul>
-<li>サーバ側</li>
-<li>サーバは、Web ページや、サイト、アプリケーションを格納しているコンピュータのことです。</li>
-<li>クライアントからサーバへアクセスすると、サーバから Web ページのコピー (HTML) がダウンロードされて、ブラウザ上で Web ページが表示されます。</li>
-</ul>
-</li>
-</ul>
-<h3 id="フロントエンドの構成要素">フロントエンドの構成要素</h3>
-<ul>
-<li>Web ブラウザ:<ul>
-<li>Chrome, Firefox, Safari 等のこと</li>
-<li>サーバからダウンロードした (HTTP レスポンスとして受け取った) HTML を表示します。</li>
-</ul>
-</li>
-<li>HTML (HyperText Markup Language):<ul>
-<li>Web ページのコンテンツの構造を作るために使うコードです。(HTML はプログラミング言語に含むかは諸説あります。)</li>
-<li>開始タグ <code>&lt;tag&gt;</code> と終了タグ <code>&lt;/tag&gt;</code> で挟んで、Web ページの要素を定義します。</li>
-<li>詳細は、<a href="https://developer.mozilla.org/ja/docs/Learn/HTML" target="_blank">こちらのチュートリアル</a> を確認するのが良いかもしれません。</li>
-</ul>
-</li>
-<li>JavaScript (js と略すこともあります):<ul>
-<li>名前に Java と入っていますが、Java とは全く異なる言語です。(よく例え話として、インドとインドネシアくらい違う (つまり、全く別物である) と言われています。)</li>
-<li>動的に表示内容を変更する (例: ボタンをクリックした場合に、表示を変える等) ために使います。(Web ページで何か表示が変わったら、ほとんどの場合 js によるものです。)</li>
-<li><code>&lt;script&gt;</code> タグ内に記述するか、<code>&lt;script&gt;</code> タグの <code>src</code> 属性に JavaScript ファイルの URL を設定することで実行されます。</li>
-<li>クライアントサイドレンダリングという、サーバから JSON 等の形式でデータを取得し、クライアント側で JavaScript で表示を作る方法もあります。<ul>
-<li>クライアントサイドレンダリングは、1 ページに複数の機能があるような場合や、ユーザー体験 (User Experience; UX) を上げるためにページ遷移なしで表示したい場合等で使われます。</li>
-</ul>
-</li>
-<li>詳細は、<a href="https://developer.mozilla.org/ja/docs/Learn/JavaScript/First_steps/What_is_JavaScript" target="_blank">こちらのチュートリアル</a> を確認するのが良いかもしれません。</li>
-</ul>
-</li>
-<li>CSS (Cascading Style Sheets):<ul>
-<li>Web ページのデザインを設定するために使われます。</li>
-<li><code>&lt;style&gt;</code> タグ内に記述するか、各タグ内の <code>style</code> 属性に記述するか、<code>&lt;link&gt;</code> タグの <code>href</code> 属性に CSS ファイルの URL を設定することで、HTML に対してスタイルを適用することができます。</li>
-<li>JavaScript を利用して、動的に CSS を適用することも可能です。</li>
-<li>詳細は、<a href="https://developer.mozilla.org/ja/docs/Learn/CSS/First_steps" target="_blank">こちらのチュートリアル</a> を確認するのが良いかもしれません。</li>
-</ul>
-</li>
-</ul>
-<h3 id="バックエンドの構成要素">バックエンドの構成要素</h3>
-<ul>
-<li>サーバ: 役割やサーバ上のアプリケーションによって異なる動作・呼び方をします。<ul>
-<li>HTTP サーバ / Web サーバ<ul>
-<li>アプリケーションサーバやロードバランサーを含んでいる場合もある</li>
-<li>Nginx/Apache (httpd) 等が有名</li>
-</ul>
-</li>
-<li>アプリケーションサーバ (AP サーバ)<ul>
-<li>Python 等のプログラミング言語で記述された、動的なコンテンツの生成を行うサーバ</li>
-<li>Python の場合、WSGI (Web Server Gateway Interface) という HTTP サーバとアプリケーションを接続するための機能を提供するソフトウェアとセットで使用される (uwsgi, mod_wsgi (Apache), gunicorn, fastcgi 等が有名)</li>
-</ul>
-</li>
-<li>ロードバランサー (LoadBalancer; LB)<ul>
-<li>ロードバランサーが受けたリクエストを、背後にある複数のサーバのいずれかに割り振る</li>
-<li>負荷を分散したり、可用性 (背後のサーバで障害が発生してもシステム全体として正常に稼働できる) を高めるために使用される</li>
-<li>Nginx/Apache (httpd) の機能で実現可能</li>
-</ul>
-</li>
-<li>データベースサーバ (DB サーバ)<ul>
-<li>データを保存しているサーバ</li>
-<li>SQL という言語で、DB サーバに問い合わせることで、欲しい情報を取得することができる</li>
-<li>DB サーバを冗長化することもある</li>
-<li>リレーショナルデータベース (RDB): MySQL/PostgreSQL, NoSQL: MongoDB 等が有名</li>
-</ul>
-</li>
-<li>キャッシュサーバ<ul>
-<li>DB への問い合わせる頻度の高いもの等をキャッシュ (一時保存) して、DB への問い合わせの頻度を低下することで、システム全体での応答速度を高速化する</li>
-<li>DB がディスクに保存するのに対して、高速に読み書き可能なメモリに保存することで、高速に取得が可能</li>
-<li>RDB に比べ複雑な問い合わができず (基本的に Key-Value 型)、複雑な構造のデータを保存できない</li>
-<li>メモリに保存する性質から揮発性 (電源を供給しないと記憶しているデータを保持できない) があるため、長期保存に向かない</li>
-<li>Redis/Memcached が有名</li>
-</ul>
-</li>
-<li>DNS サーバ<ul>
-<li>ドメイン名 (例: amazon.com) から IP アドレスを解決する</li>
-<li>主に 2 種類のサーバがあり、レコード (ドメイン名と IP アドレスの情報を紐付けるデータ) を保持する 権威 DNS サーバ(Authoritative Name Server) と、権威 DNS サーバへ繰り返し問い合わせてドメイン名から IP アドレスを解決する DNS Resolver (DNS キャッシュサーバとも呼ばれる) がある</li>
-<li>BIND 等が有名</li>
-</ul>
-</li>
-<li>CDN (Content Delivery Network):<ul>
-<li>DNS の仕組みを活用して、送信元 IP アドレスに最も近いキャッシュサーバ (エッジサーバとも呼びます) の IP アドレスを返却する</li>
-<li>オリジンサーバ (アクセスしたいサーバ) の代理で応答し、キャッシュサーバがキャッシュしていなければ、オリジンサーバへリクエストし、オリジンサーバからのレスポンスをキャッシュして、クライアントへ応答する。以降はキャッシュサーバが保持しているキャッシュを返却する。</li>
-<li>キャッシュ (システムのパフォーマンス向上)、オリジンサーバの負荷分散として利用する</li>
-<li>Fastly, CloudFront (AWS), Akamai CDN 等のサービスを利用する</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>リクエストの流れ
-<img src="../img/webapp_01.png" alt></li>
-</ul>
-<pre><code>1. DNS 名 (例: www.xxx.com) -&gt; IP アドレス (X.X.X.X) を取得
-[クライアント] =&gt; [DNS Resolver/キャッシュサーバ] =&gt; [DNS 権威サーバ]
-2. IP アドレス (X.X.X.X) のサーバへ HTTP リクエストを送る
-[クライアント] =&gt; [CDN エッジサーバ] =&gt; [LB] =&gt; [HTTP サーバ] =&gt; [AP サーバ] =&gt; [DB サーバ]
-                                                            [AP サーバ] =&gt; [キャッシュサーバ]
-  * CDN にキャッシュされている場合、CDN から即返却
-  * キャッシュされていない場合、背後のサーバへリクエストを送信
-  * CSS や JS、静的な HTML 等は、HTTP サーバからリクエストの逆順に辿ってクライアントへ返却
-    * 外部のサーバが CSS 等のファイルを保持している場合は、外部サーバへアクセスするように指示をする (リダイレクトのレスポンスを返却する)
-  * 動的なページはアプリケーションサーバが必要に応じて、キャッシュサーバや DB サーバ等へアクセスして、データを加工して HTML 等にして、リクエストの逆順に辿ってクライアントへ返却
-3. サーバから HTTP レスポンスを受け取って表示する (リダイレクトレスポンスを受け取った場合は、クライアントは指定されたサーバへ HTTP リクエストを送る)
+<h3 id="tutorialviewspy-作成">tutorial/views.py 作成</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> django.contrib.auth.decorators <span class="hljs-keyword">import</span> login_required, user_passes_test
+<span class="hljs-keyword">from</span> django.utils.decorators <span class="hljs-keyword">import</span> method_decorator
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginRequiredMixin</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+
+<span class="hljs-meta">    @method_decorator(<span class="hljs-params">login_required</span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dispatch</span>(<span class="hljs-params">self, *args, **kwargs</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>().dispatch(*args, **kwargs)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdminLoginRequiredMixin</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+
+<span class="hljs-meta">    @method_decorator(<span class="hljs-params">user_passes_test(<span class="hljs-params"><span class="hljs-keyword">lambda</span> u: u.is_superuser</span>)</span>)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dispatch</span>(<span class="hljs-params">self, *args, **kwargs</span>):</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>().dispatch(*args, **kwargs)
 </code></pre>
+<h3 id="tutorialsiteadminformspy-作成">tutorial/site_admin/forms.py 作成</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> django <span class="hljs-keyword">import</span> forms
+
+<span class="hljs-keyword">from</span> tutorial.forms <span class="hljs-keyword">import</span> FormControlMixin
+<span class="hljs-keyword">from</span> tutorial.todo.models <span class="hljs-keyword">import</span> Category
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CategoryCreateForm</span>(<span class="hljs-params">forms.ModelForm, FormControlMixin</span>):</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Meta</span>:</span>
+        model = Category
+        fields = [
+            <span class="hljs-string">&apos;order&apos;</span>,
+            <span class="hljs-string">&apos;name&apos;</span>,
+        ]
+</code></pre>
+<h3 id="tutorialsiteadminviewspy-作成">tutorial/site_admin/views.py 作成</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> django.views.generic <span class="hljs-keyword">import</span> CreateView
+<span class="hljs-keyword">from</span> django.contrib.messages.views <span class="hljs-keyword">import</span> SuccessMessageMixin
+<span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> reverse_lazy
+
+<span class="hljs-keyword">from</span> tutorial.todo.models <span class="hljs-keyword">import</span> Category
+<span class="hljs-keyword">from</span> tutorial.views <span class="hljs-keyword">import</span> AdminLoginRequiredMixin
+<span class="hljs-keyword">from</span> .forms <span class="hljs-keyword">import</span> CategoryCreateForm
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CategoryCreateView</span>(<span class="hljs-params">AdminLoginRequiredMixin, SuccessMessageMixin, CreateView</span>):</span>
+    model = Category
+    form_class = CategoryCreateForm
+    success_url = reverse_lazy(<span class="hljs-string">&apos;index&apos;</span>)
+    template_name = <span class="hljs-string">&quot;site_admin/category/create.html&quot;</span>
+    success_message = <span class="hljs-string">&quot;登録しました。&quot;</span>
+</code></pre>
+<h3 id="tutorialtemplatesincludeformhtml-作成">tutorial/templates/include/form.html 作成</h3>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span>&gt;</span>{% csrf_token %}
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-header text-bg-primary&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>{{ form_title }}<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;table table-bordered&quot;</span>&gt;</span>
+        {% for field in form %}
+          <span class="hljs-tag">&lt;<span class="hljs-name">tr</span> {% <span class="hljs-attr">if</span> <span class="hljs-attr">field.errors</span> %}<span class="hljs-attr">class</span>=<span class="hljs-string">&quot;table-danger&quot;</span>{% <span class="hljs-attr">endif</span> %}&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>{{ field.label }}<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>{{ field.errors }}{{ field }}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+        {% endfor %}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-footer align-center&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-lg btn-primary&quot;</span>&gt;</span>{{ submit_btn_label }}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</code></pre>
+<h3 id="tutorialsiteadmintemplatessiteadmincategorycreatehtml-作成">tutorial/site_admin/templates/site_admin/category/create.html 作成</h3>
+<pre><code class="lang-html">{% extends &quot;base.html&quot; %}
+{% block title %}カテゴリ登録{% endblock%}
+
+{% block content %}
+{% include &apos;include/form.html&apos; with form=form form_title=&apos;カテゴリ登録フォーム&apos; submit_btn_label=&apos;登録&apos; csrf_token=csrf_token only %}
+{% endblock %}
+</code></pre>
+<h3 id="tutorialtodotemplatestodousercreatehtml-変更">tutorial/todo/templates/todo/user_create.html 変更</h3>
+<pre><code class="lang-html">{% extends &quot;base.html&quot; %}
+{% block title %}新規登録{% endblock%}
+
+{% block content %}
+{% include &apos;include/form.html&apos; with form=form form_title=&apos;新規登録フォーム&apos; submit_btn_label=&apos;登録&apos; csrf_token=csrf_token only %}
+{% endblock %}
+</code></pre>
+<h3 id="tutorialsiteadminurlspy-変更">tutorial/site_admin/urls.py 変更</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path
+<span class="hljs-keyword">from</span> .views <span class="hljs-keyword">import</span> CategoryCreateView
+
+urlpatterns = [
+    path(<span class="hljs-string">&quot;category/create/&quot;</span>, CategoryCreateView.as_view(), name=<span class="hljs-string">&quot;category_create&quot;</span>),
+]
+</code></pre>
+<h3 id="tutorialtemplatesbasehtml-変更">tutorial/templates/base.html 変更</h3>
+<pre><code class="lang-html">              {% block nav_body %}
+                {% if user.is_authenticated %} <span class="hljs-comment">&lt;!-- ここから --&gt;</span>
+                  {% if user.is_superuser %}
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-item dropdown&quot;</span>&gt;</span>
+                      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-link dropdown-toggle&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;navbarDropdownCategory&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">data-bs-toggle</span>=<span class="hljs-string">&quot;dropdown&quot;</span> <span class="hljs-attr">aria-expanded</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>
+                        カテゴリー
+                      <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dropdown-menu&quot;</span>, <span class="hljs-attr">aria-labelledby</span>=<span class="hljs-string">&quot;navbarDropdownCategory&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dropdown-item&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;{% url &apos;site_admin:category_create&apos; %}&quot;</span>&gt;</span>登録<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                  {% endif %}
+                {% endif %} <span class="hljs-comment">&lt;!-- ここまで--&gt;</span>
+              {% endblock %}
+</code></pre>
+<pre><code class="lang-html">              {% block nav_right %}
+                {% if user.is_authenticated %}
+                  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-item dropdown&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-link dropdown-toggle&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;navbarDropdown&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">data-bs-toggle</span>=<span class="hljs-string">&quot;dropdown&quot;</span> <span class="hljs-attr">aria-expanded</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>
+                      {% if user.is_superuser %} <span class="hljs-comment">&lt;!-- ここから --&gt;</span>
+                        管理者
+                      {% else %}
+                        {{ user.todouser.handle_name }}
+                      {% endif %} <span class="hljs-comment">&lt;!-- ここまで--&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+<h3 id="確認">確認</h3>
+<p><a href="http://127.0.0.1:8000/admin/category/create/" target="_blank">http://127.0.0.1:8000/admin/category/create/</a> にアクセスして、以下となっていれば OK。</p>
+<h4 id="category-登録画面-管理者ログイン後、未ログイン時はログイン画面へ遷移">Category 登録画面 (管理者ログイン後、未ログイン時はログイン画面へ遷移)</h4>
+<p><img src="../img/django_10.png" alt></p>
+<h4 id="登録後完了画面-トップページ">登録後完了画面 (トップページ)</h4>
+<p><img src="../img/django_11.png" alt></p>
+
                                 
                                 </section>
                             
@@ -1168,10 +1178,10 @@
 
             
                 
-                
-                <a href="03.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Bash コマンドの紹介">
-                    <i class="fa fa-angle-right"></i>
+                <a href="12.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Django Tutorial 6">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -1180,7 +1190,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Web アプリケーションについて","level":"2.2.1.1","depth":3,"next":{"title":"Bash コマンドの紹介","level":"2.2.1.2","depth":3,"path":"02_django/03.md","ref":"./02_django/03.md","articles":[]},"previous":{"title":"Web アプリの概要と必須ツールの紹介","level":"2.2.1","depth":2,"ref":"","articles":[{"title":"Web アプリケーションについて","level":"2.2.1.1","depth":3,"path":"02_django/02.md","ref":"./02_django/02.md","articles":[]},{"title":"Bash コマンドの紹介","level":"2.2.1.2","depth":3,"path":"02_django/03.md","ref":"./02_django/03.md","articles":[]},{"title":"Git の紹介","level":"2.2.1.3","depth":3,"path":"02_django/04.md","ref":"./02_django/04.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"02_django/02.md","mtime":"2023-10-22T14:26:05.549Z","type":"markdown"},"gitbook":{"version":"3.7.5","time":"2023-11-02T05:19:35.888Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Django Tutorial 7","level":"2.2.2.9","depth":3,"previous":{"title":"Django Tutorial 6","level":"2.2.2.8","depth":3,"path":"02_django/12.md","ref":"./02_django/12.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"02_django/13.md","mtime":"2023-11-02T05:19:26.080Z","type":"markdown"},"gitbook":{"version":"3.7.5","time":"2023-11-02T05:19:35.888Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
