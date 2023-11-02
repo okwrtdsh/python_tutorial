@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.urls import include, path
-from django.shortcuts import render
 from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import render
+from django.urls import include, path
 
 urlpatterns = [
     path("", lambda request: render(request, "index.html"), name="index"),

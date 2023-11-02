@@ -1,10 +1,11 @@
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from tutorial.views import LoginRequiredMixin
-from .models import ToDoUser, ToDo
-from .forms import ToDoUserCreateForm, ToDoCreateForm, ToDoEditForm
+
+from .forms import ToDoCreateForm, ToDoEditForm, ToDoUserCreateForm
+from .models import ToDo, ToDoUser
 
 
 class ToDoUserCreateView(SuccessMessageMixin, CreateView):

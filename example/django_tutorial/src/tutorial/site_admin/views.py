@@ -1,9 +1,10 @@
-from django.views.generic import CreateView, ListView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView, UpdateView
 
 from tutorial.todo.models import Category
 from tutorial.views import AdminLoginRequiredMixin
+
 from .forms import CategoryCreateForm, CategoryEditForm
 
 

@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 
 from tutorial.forms import FormControlMixin
-from .models import ToDoUser, ToDo, Category
+
+from .models import Category, ToDo, ToDoUser
 
 
 class ToDoUserCreateForm(UserCreationForm, FormControlMixin):
