@@ -66,3 +66,6 @@ class ToDo(ModelBase):
     def complete(self):
         self.completed = timezone.now()
         self.save()
+
+    def get_categories_display(self):
+        return " ".join([c.name for c in self.categories.all()])

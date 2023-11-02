@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}ToDo 一覧{% endblock %}
+
+{% block content %}
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>完了</th><th>締め切り</th><th>名称</th><th>優先度</th><th>カテゴリー</th><th>作成日時</th><th>有効</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in todo_list %}
+    <tr>
+      <td>{% if todo.is_completed %}{{ todo.completed }}{% else %}未完了{% endif %}</td>
+      <td>{{ todo.deadline }}</td>
+      <td>{{ todo.name }}</td>
+      <td>{{ todo.get_priority_display }}
+      <td>{{ todo.get_categories_display }}</td>
+      <td>{{ todo.created }}</td>
+      <td>{% if todo.enabled %}有効{% else %}無効{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if is_paginated %}
+{% include 'include/pagination.html' with page_obj=page_obj %}
+{% endif %}
+{% endblock %}
+
