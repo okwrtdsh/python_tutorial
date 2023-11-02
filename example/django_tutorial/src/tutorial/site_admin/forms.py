@@ -12,3 +12,14 @@ class CategoryCreateForm(forms.ModelForm, FormControlMixin):
             'order',
             'name',
         ]
+
+
+class CategoryEditForm(forms.ModelForm, FormControlMixin):
+
+    class Meta:
+        model = Category
+        fields = [
+            'enabled',
+            'order',
+            'name',
+        ]

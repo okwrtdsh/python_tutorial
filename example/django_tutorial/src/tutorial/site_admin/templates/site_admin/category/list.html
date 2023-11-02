@@ -5,7 +5,7 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>表示順</th><th>名称</th><th>作成日時</th><th>更新日時</th><th>有効</th>
+      <th>表示順</th><th>名称</th><th>作成日時</th><th>更新日時</th><th>有効</th><th>修正</th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +16,11 @@
       <td>{{ category.created }}</td>
       <td>{{ category.updated }}</td>
       <td>{% if category.enabled %}有効{% else %}無効{% endif %}</td>
+      <td>
+        <a href="{% url "site_admin:category_edit" category.id %}" class="d-grid">
+          <button class="btn btn-secondary" type="button">修正</button>
+        </a>
+      </td>
     </tr>
     {% endfor %}
   </tbody>

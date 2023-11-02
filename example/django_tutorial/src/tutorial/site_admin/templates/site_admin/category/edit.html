@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}カテゴリ修正{% endblock %}
+
+{% block content %}
+{% include 'include/form.html' with form=form form_title='カテゴリ修正フォーム' submit_btn_label='修正' csrf_token=csrf_token only %}
+{% endblock %}
