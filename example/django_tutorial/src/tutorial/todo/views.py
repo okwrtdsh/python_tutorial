@@ -1,10 +1,10 @@
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 
 from tutorial.views import LoginRequiredMixin
 from .models import ToDoUser, ToDo
-from .forms import ToDoUserCreateForm, ToDoCreateForm
+from .forms import ToDoUserCreateForm, ToDoCreateForm, ToDoEditForm
 
 
 class ToDoUserCreateView(SuccessMessageMixin, CreateView):
@@ -49,3 +49,14 @@ class ToDoDetailView(LoginRequiredMixin, DetailView):
     model = ToDo
     pk_url_kwarg = "todo_id"
     template_name = "todo/detail.html"
+
+
+class ToDoEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = ToDo
+    form_class = ToDoEditForm
+    pk_url_kwarg = "todo_id"
+    template_name = "todo/edit.html"
+    success_message = "修正しました。"
+
+    def get_success_url(self):
+        return reverse_lazy('todo:detail', args=(self.object.id,))

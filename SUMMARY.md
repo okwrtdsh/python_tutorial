@@ -68,4 +68,6 @@
         * [Django Tutorial 10](./02_django/16.md)
         * [Django Tutorial 11](./02_django/17.md)
         * [Django Tutorial 12](./02_django/18.md)
+        * [Django Tutorial 13](./02_django/19.md)
+        * [完成](./02_django/20.md)
 

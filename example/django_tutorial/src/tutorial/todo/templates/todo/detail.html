@@ -47,6 +47,9 @@
     </table>
   </div>
   <div class="card-footer align-center">
+    <a href="{% url "todo:edit" todo.id %}">
+      <button type="button" class="btn btn-lg btn-primary">修正</button>
+    </a>
   </div>
 </div>
 {% endblock %}

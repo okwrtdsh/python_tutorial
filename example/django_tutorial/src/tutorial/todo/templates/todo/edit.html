@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}ToDo 修正{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ja.min.js" integrity="sha512-zI0UB5DgB1Bvvrob7MyykjmbEI4e6Qkf5Aq+VJow4nwRZrL2hYKGqRf6zgH3oBQUpxPLcF2IH5PlKrW6O3y3Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+  $(function(){
+      $('#id_completed').datepicker({
+        format: 'yyyy-mm-dd',
+        language: 'ja',
+      });
+      $('#id_deadline').datepicker({
+        format: 'yyyy-mm-dd',
+        language: 'ja',
+      });
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+{% include 'include/form.html' with form=form form_title='ToDo 修正フォーム' submit_btn_label='修正' csrf_token=csrf_token only %}
+{% endblock %}
+

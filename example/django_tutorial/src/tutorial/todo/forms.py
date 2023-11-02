@@ -68,3 +68,25 @@ class ToDoCreateForm(forms.ModelForm, FormControlMixin):
             todo.save()
             self.save_m2m()
         return todo
+
+
+class ToDoEditForm(forms.ModelForm, FormControlMixin):
+
+    class Meta:
+        model = ToDo
+        fields = [
+            "completed",
+            "name",
+            "deadline",
+            "priority",
+            "categories",
+            "note",
+        ]
+        widgets = {
+            'categories': forms.CheckboxSelectMultiple()
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['categories'].queryset = Category.objects.filter(enabled=True)
+        self.fields['categories'].widget.attrs.update({'class': "checkbox"})
